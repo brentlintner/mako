@@ -1,9 +1,9 @@
-[submodule "themes/vimix-gtk-themes"]
-	path = themes/vimix-gtk-themes
-	url = https://github.com/vinceliuice/vimix-gtk-themes.git
 [submodule "icons/vertex-icons"]
 	path = icons/vertex-icons
 	url = https://github.com/horst3180/vertex-icons.git
 [submodule "icons/paper-icon-theme"]
 	path = icons/paper-icon-theme
 	url = https://github.com/snwh/paper-icon-theme.git
+[submodule "themes/materia-theme"]
+	path = themes/materia-theme
+	url = https://github.com/nana-4/materia-theme.git

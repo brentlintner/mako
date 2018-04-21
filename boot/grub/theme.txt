@@ -1,10 +1,10 @@
-title-text: ""
+title-text: "A new world awaits..."
 title-font: "DejaVu Sans Regular 48"
 message-font: "Terminus 16"
 message-color: "#fff"
 message-bg-color: "#333333"
 desktop-color: "#1e1e1e"
-desktop-image: "boot-zuiderheide.png"
+desktop-image: "bg.png"
 terminal-font: "Terminus 14"
 terminal-left: "0"
 terminal-top: "0"
@@ -17,7 +17,6 @@ terminal-border: "0"
     height = 35
     left = 0%
     width = 100%
-#text = "Your space within space awaits, bnix..."
     align = "center"
     font = "DejaVu Sans Regular 48"
     color = "#ffffff"
@@ -39,23 +38,11 @@ terminal-border: "0"
     item_spacing = 5
     item_font =  "Terminus 16"
     item_color = "#cccccc"
-    #item_color = "#FFFFFF"
     selected_item_font = "Terminus 16"
     selected_item_color = "#FFFFFF"
     selected_item_pixmap_style = "select_*.png"
     menu_pixmap_style = "menu_*.png"
 }
-
-#+ progress_bar {
-#    id = "__timeout__"
-#    left = 0
-#    top = 100%-32
-#    width = 100%
-#    height = 32
-#    show_text = false
-#    bar_style = "progress_bar_*.png"
-#    highlight_style = "progress_bar_hl_*.png"
-#}
 
 + progress_bar {
     id = "__timeout__"
