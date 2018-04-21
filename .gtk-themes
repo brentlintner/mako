@@ -1,0 +1,4 @@
+GTK/Shell: vimix-gtk-themes-git
+Icons: vertex-icons-git (inherits paper-icon-theme-git)
+Cursor: xcursor-simpleandsoft
+Term Font: ttf-inconsolata
