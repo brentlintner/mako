@@ -1,5 +1,6 @@
-title-text: "A new world awaits..."
-title-font: "DejaVu Sans Regular 48"
+title-text: "After this, there is no turning back."
+title-font: "Terminus 16"
+title-color: "#fff"
 message-font: "Terminus 16"
 message-color: "#fff"
 message-bg-color: "#333333"
@@ -18,7 +19,7 @@ terminal-border: "0"
     left = 0%
     width = 100%
     align = "center"
-    font = "DejaVu Sans Regular 48"
+    font = "Terminus 16"
     color = "#ffffff"
 }
 

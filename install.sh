@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-set -xe
-
 OS=`uname -s`
 THEME=mako
 opt=$1
@@ -12,7 +10,7 @@ ICONS_PATH=$INST_PATH/icons/$THEME
 THEMES_PATH="$INST_PATH/themes/$THEME"
 BG_IMG_PATH="$INST_PATH/backgrounds/$THEME.png"
 ICONS_EXTRA_PATH=$INST_PATH/icons/$THEME-extra
-CURSOR_URL="https://www.opendesktop.org/p/999946/startdownload?file_id=1463061628&file_name=28427-simpleandsoft-0.2.tar.gz&file_type=application/x-gzip&file_size=34793&url=https%3A%2F%2Fdl.opendesktop.org%2Fapi%2Ffiles%2Fdownloadfile%2Fid%2F1463061628%2Fs%2F6b49b8ec0e53089ade8b58be5effff32%2Ft%2F1524424510%2Fu%2F26968%2F28427-simpleandsoft-0.2.tar.gz"
+CURSOR_URL="https://www.archlinux.org/packages/community/any/xcursor-simpleandsoft/download"
 TMP_PATH=/tmp/$THEME
 PACKAGER="" # set in check_packager()
 
@@ -21,93 +19,24 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS=(
-  sassc
-  nodejs
-  curl
-  libglib2.0-dev
-  gnome-common
-  gnome-shell-extensions
-  gnome-tweak-tool
-  libxml2-utils
-  gtk2-engines-murrine
-  gtk2-engines-pixbuf
-  git
-  fonts-dejavu
-  fonts-inconsolata
-)
-
-DNF_PKGS=(
-  curl
-  nodejs
-  gnome-common
-  gnome-tweak-tool
-  gnome-shell-extension-user-theme
-  glib2-devel
-  gtk-murrine-engine
-  gtk2-engines
-  git
-  sassc
-  dejavu-sans-fonts
-  levien-inconsolata-fonts
-)
-
-ZYP_PKGS=(
-  curl
-  nodejs
-  gnome-common
-  gnome-tweak-tool
-  gtk2-engine-murrine
-  gtk2-engines
-  git
-  sassc
-  glib2-devel
-  dejavu-fonts
-  google-inconsolata-fonts
-  gnome-tweaks
-)
-
-PAC_PKGS=(
-  curl
-  nodejs
-  sassc
-  glib2
-  gnome-shell-extensions
-  gnome-common
-  gtk-engine-murrine
-  gtk-engines
-  git
-  ttf-inconsolata
-  ttf-dejavu
-  gnome-tweaks
-)
-
-YUM_PKGS=(
-  curl
-  nodejs
-  ruby
-  glib2-devel
-  gnome-common
-  gnome-tweak-tool
-  gnome-shell-extension-user-theme
-  git
-  dejavu-sans-fonts
-)
-
-BRW_PKGS=(
-  git
-  font-inconsolata
-  font-dejavu
-)
+APT_PKGS="sassc nodejs curl autoconf libglib2.0-dev gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+DNF_PKGS="curl nodejs gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
+ZYP_PKGS="curl make autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
+PAC_PKGS="curl nodejs sassc glib2 gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+YUM_PKGS="curl nodejs epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
+BRW_PKGS="git font-inconsolata font-dejavu"
 
 as_root() {
   if [ $(id -u) -eq 0 ]; then
     "$@"
   else
     if [ ! -z $(command -v sudo) ]; then
+      echo "sudo $@"
       sudo "$@"
     elif [ ! -z $(command -v su) ]; then
-      su root -c "$@"
+      echo "su root -c '$@'"
+      sudo "$@"
+      su root -c '$@'
     else
       echo "Can't continue without sudo/su installed." && exit 1
     fi
@@ -134,34 +63,44 @@ install_pkgs() {
   case $PACKAGER in
     pacman)
       as_root pacman --noconfirm -S yaourt
-      as_root yaourt --noconfirm -S ${PAC_PKGS[@]}
+      as_root yaourt --noconfirm -S $PAC_PKGS
       ;;
     zypper)
-      as_root zypper in -y ${ZYP_PKGS[@]}
+      as_root zypper in -y $ZYP_PKGS
       ;;
     dnf)
-      as_root dnf install -y ${DNF_PKGS[@]}
+      as_root dnf install -y $DNF_PKGS
       ;;
     yum)
-      as_root yum install -y ${YUM_PKGS[@]}
+      curl --silent --location https://rpm.nodesource.com/setup_8.x | as_root bash -
+      as_root yum -y install $YUM_PKGS
       ;;
     apt)
-      as_root apt install -y ${APT_PKGS[@]}
+      as_root apt -y install $APT_PKGS
       ;;
     brew)
       as_root brew tap caskroom/fonts
-      as_root brew install -y ${BRW_PKGS[@]}
+      as_root brew install -y $BRW_PKGS
       ;;
     *)
       echo "WARNING: Can't install fonts, etc. Unknown pkg manager."
       ;;
   esac
 
-  if [ -z $(command -v sassc) ]; then
-    as_root gem install rake sassc
+  if [ -z $(command -v node) ]; then
+    as_root ln -s /usr/bin/nodejs /usr/bin/node
+  fi
 
-    if [ ! -x sassc ]; then
-      as_root ln -s `which sass` /usr/bin/sassc
+  if [ -z $(command -v sassc) ]; then
+    as_root gem install -f rake sassc
+
+    if [ -z $(command -v sassc) ]; then
+      if [ -z $(command -v sass) ]; then
+        # HACK: openSUSE
+        as_root ln -s /usr/bin/sass.ruby2.1 /usr/bin/sassc
+      else
+        as_root ln -s /usr/bin/sass /usr/bin/sassc
+      fi
     fi
   fi
 }
@@ -170,8 +109,8 @@ install_icons() {
   cd icons/vertex-icons
   as_root mkdir -p $ICONS_PATH
   as_root cp -r * $ICONS_PATH
-  as_root sed -i "s/Name=.*/Name=$THEME-icons/" "$ICONS_PATH/index.theme"
-  as_root sed -i "s/Inherits=.*/Inherits=$THEME-icons-extra/" "$ICONS_PATH/index.theme"
+  as_root sed -i "s/Name=.*/Name=$THEME/" "$ICONS_PATH/index.theme"
+  as_root sed -i "s/Inherits=.*/Inherits=$THEME-icons-extra,gnome,hicolor/" "$ICONS_PATH/index.theme"
   git reset HEAD --hard
   cd - > /dev/null
 
@@ -179,11 +118,11 @@ install_icons() {
   as_root mkdir -p $TMP_PATH/icons
   ./autogen.sh --prefix=$TMP_PATH/icons
   make
-  sudo make install > /dev/null
+  as_root make install > /dev/null
   as_root cp -r $TMP_PATH/icons/share/icons/Paper $ICONS_EXTRA_PATH
   as_root rm -rf $TMP_PATH/icons/share/icons/Paper*
   as_root sed -i "s/Name=.*/Name=$THEME-icons-extra/" $ICONS_EXTRA_PATH/index.theme
-  as_root sed -i "s/Inherits=.*/Inherits=gnome,hicolor/" $ICONS_EXTRA_PATH/index.theme
+  as_root sed -i "s/Inherits=.*/Inherits=Adwaita,gnome,hicolor/" $ICONS_EXTRA_PATH/index.theme
   git reset HEAD --hard
   cd - > /dev/null
 }
@@ -204,30 +143,40 @@ install_gtk_theme() {
   as_root sed -i "s/CursorTheme=.*/CursorTheme=$THEME-cursor/" "$THEMES_PATH/index.theme"
   cd - > /dev/null
 
+  if [ ! -d /usr/share/backgrounds ]; then
+    as_root mkdir -p /usr/share/backgrounds
+  fi
   as_root cp bg/bg.png $BG_IMG_PATH
 }
 
 install_cursor_theme() {
   ARCHIVE_NAME="Simple-and-Soft.tar.gz"
-  CURSOR_INST_DIR="$INST_PATH/icons/$THEME-cursor"
+  CURSOR_INST_DIR="$INST_PATH/icons/$THEME"
+  CURSOR_DL_PATH=cursors/Simple-and-Soft
+  CURSOR_EXTRACTED_PATH=usr/share/icons/Simple-and-Soft
 
-  curl -fsL "$CURSOR_URL" > cursors/$ARCHIVE_NAME
-  cd cursors
-  tar -xvf "$ARCHIVE_NAME"
+  mkdir -p $CURSOR_DL_PATH
+  curl -fsL "$CURSOR_URL" > $CURSOR_DL_PATH/$ARCHIVE_NAME
+  cd $CURSOR_DL_PATH
+  tar -xvf "$ARCHIVE_NAME" > /dev/null
   cd - > /dev/null
 
-  as_root cp -r cursors/simpleandsoft $CURSOR_INST_DIR
-  as_root cp cursors/index.theme $CURSOR_INST_DIR
-
-  rm cursors/$ARCHIVE_NAME
-  rm -r cursors/simpleandsoft
+  as_root cp -r $CURSOR_DL_PATH/$CURSOR_EXTRACTED_PATH/cursors $CURSOR_INST_DIR/cursors
+  rm -rf $CURSOR_DL_PATH
 }
 
 install_grub_theme() {
-  if [ -x update-grub ]; then
+  DEFAULT_GRUB_FILE=/etc/default/grub
+  if [ ! -z "$(command -v update-grub)" ]; then
+    as_root mkdir -p $INST_PATH/grub/themes
     as_root cp -r boot/grub $INST_PATH/grub/themes/$THEME
-    as_root cp /etc/default/grub /etc/default/grub.bak
-    as_root sed -i 's/\#?GRUB_THEME.*/GRUB_THEME=\"/usr/share/grub/themes/mako/theme.txt"/' /etc/default/grub
+    as_root cp -f $DEFAULT_GRUB_FILE $DEFAULT_GRUB_FILE.bak
+    # TODO: check if setting already exists and replace vs adding on (ex: manjaro linux)
+    echo 'GRUB_THEME="/usr/share/grub/themes/mako/theme.txt"' | as_root tee -a $DEFAULT_GRUB_FILE
+    as_root sed -i 's/GRUB_HIDDEN_TIMEOUT_QUIET.*//' $DEFAULT_GRUB_FILE
+    as_root sed -i 's/GRUB_HIDDEN_TIMEOUT.*//' $DEFAULT_GRUB_FILE
+    as_root sed -i 's/GRUB_TIMEOUT.*/GRUB_TIMEOUT=5/' $DEFAULT_GRUB_FILE
+    as_root sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=""/' $DEFAULT_GRUB_FILE
     as_root update-grub
   fi
 }
@@ -243,13 +192,16 @@ install_config() {
   as_root mkdir -p /etc/dconf/db/gdm.d
   as_root cp -f config/10-cursor-settings /etc/dconf/db/gdm.d/10-cursor-settings
 
-  GNOME_USR_THEME_EXT="user-theme@gnome-shell-extensions.gcampax.github.com"
-  NEW_SETTINGS=$(node -e "console.log(JSON.stringify($(gsettings get org.gnome.shell enabled-extensions).concat('$GNOME_USR_THEME_EXT')))")
+  GNOME_USR_THEME_EXT="user-theme\@gnome-shell-extensions.gcampax.github.com"
+  ENABLED_EXTS=$(gsettings get org.gnome.shell enabled-extensions | sed 's/\@as\s*//')
+  NEW_SETTINGS=$(node -e "console.log(JSON.stringify($ENABLED_EXTS.concat('$GNOME_USR_THEME_EXT')))")
+  gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
+  gsettings set org.gnome.desktop.background show-desktop-icons "false"
   gsettings set org.gnome.shell enabled-extensions "$NEW_SETTINGS"
   gsettings set org.gnome.shell.extensions.user-theme name "$THEME"
   gsettings set org.gnome.desktop.interface gtk-theme "$THEME"
   gsettings set org.gnome.desktop.interface icon-theme "$THEME"
-  gsettings set org.gnome.desktop.interface cursor-theme "$THEME-cursor"
+  gsettings set org.gnome.desktop.interface cursor-theme "$THEME"
   gsettings set org.gnome.desktop.background picture-uri "$BG_IMG_PATH"
   gsettings set org.gnome.desktop.screensaver picture-uri "$BG_IMG_PATH"
   gsettings set org.gnome.desktop.wm.preferences titlebar-font "$FONT_TITLE"
@@ -271,25 +223,32 @@ checkout_submodules() {
 }
 
 remove_files() {
-  rm -r ~/.config/gtk-2.0
-  rm -r ~/.config/gtk-3.0
-  rm -r ~/.config/gtk-4.0
+  rm -rf ~/.config/gtk-2.0
+  rm -rf ~/.config/gtk-3.0
+  rm -rf ~/.config/gtk-4.0
   as_root rm -rf $INST_PATH/icons/mako*
   as_root rm -rf $INST_PATH/themes/mako*
   as_root rm -rf $INST_PATH/backgrounds/mako*
-  as_root rm /etc/dconf/db/gdm.d/10-cursor-settings
+  as_root rm -f /etc/dconf/db/gdm.d/10-cursor-settings
 }
 
 install() {
+  echo "== Installing packages"
   check_packager
   install_pkgs
+  echo "== Checkout submodules"
   checkout_submodules
 
   if [ "$OS" = "Linux" ]; then
+    echo "== Installing icon packs"
     install_icons
+    echo "== Installing gtk theme"
     install_gtk_theme
+    echo "== Installing cursor theme"
     install_cursor_theme
+    echo "== Installing grub theme"
     install_grub_theme
+    echo "== Configuring install"
     install_config
   fi
 }
@@ -299,17 +258,25 @@ uninstall() {
 
   if [ -f /etc/default/grub.bak ]; then
     as_root mv /etc/default/grub.bak /etc/default/grub
+    as_root rm -rf $INST_PATH/grub/themes/$THEME
     as_root update-grub
   fi
 
-  # TODO: does this actually work as expected?
-  gsettings set org.gnome.shell enabled-extensions ""
-  gsettings set org.gnome.shell.extensions.user-theme ""
-  gsettings set org.gnome.desktop.interface gtk-theme ""
-  gsettings set org.gnome.desktop.interface icon-theme ""
-  gsettings set org.gnome.desktop.interface cursor-theme ""
-  gsettings set org.gnome.desktop.background picture-uri ""
-  gsettings set org.gnome.desktop.screensaver picture-uri ""
+  # before turning off user themes..
+  gsettings reset org.gnome.shell.extensions.user-theme name
+
+  gsettings reset org.gnome.desktop.input-sources xkb-options
+  gsettings reset org.gnome.desktop.background show-desktop-icons
+  gsettings reset org.gnome.shell enabled-extensions
+  gsettings reset org.gnome.desktop.interface gtk-theme
+  gsettings reset org.gnome.desktop.interface icon-theme
+  gsettings reset org.gnome.desktop.interface cursor-theme
+  gsettings reset org.gnome.desktop.background picture-uri
+  gsettings reset org.gnome.desktop.screensaver picture-uri
+  gsettings reset org.gnome.desktop.wm.preferences titlebar-font
+  gsettings reset org.gnome.desktop.interface font-name
+  gsettings reset org.gnome.desktop.interface document-font-name
+  gsettings reset org.gnome.desktop.interface monospace-font-name
 }
 
 usage() {
@@ -325,13 +292,14 @@ run() {
       ;;
     --revert )
       uninstall
+      trap clean_tmp EXIT
       ;;
     * )
       install
+      trap clean_tmp EXIT
       ;;
   esac
+  echo "== Done! (you may have to restart)"
 }
-
-trap clean_tmp EXIT
 
 run

@@ -9,8 +9,22 @@ A beautiful grayscale meta theme installer for GTK+ based desktops.
 I currently use this as a personal install script to quickly setup a
 consistent GNU/Linux look and feel alongside my [dot-files](https://github.com/brentlintner/dot-files) and [vim-settings](https://github.com/brentlintner/vim-settings), primarily using gnome-shell as the DE.
 
-I highly suggest you use this only as a reference point for
-installing each project on your own or in its proper way.
+It's probably best to take this as a reference point and/or install each project in a less manual way (ex: via package manager).
+
+## Supported OSes
+
+* Ubuntu
+* Debian
+* Arch
+* Fedora
+* openSUSE (need to install [gnome-extension-user-theme](https://extensions.gnome.org/extension/19/user-themes) manually)
+* CentOS
+* macOS (just the fonts)
+
+## Requirements
+
+* glib based DE such as gnome-shell or Unity (limited support on DEs like XFCE, etc)
+* Xorg (gnome-shell extensions + Wayland not 100%)
 
 ## Install
 ```sh
@@ -19,9 +33,11 @@ $ cd ~/.mako
 $ ./install.sh
 $ sudo reboot
 ```
+Note: On OSes without `sudo` it might be way less annoying to just run `install.sh` as root.
+
 ## Features
 
-* A material design based grayscale interface and shell theme
+* A material design based grayscale interface, shell and gdm theme
 * Simple cursor with transparency
 * Rich, layered icon sets
 * Beautiful background, grub theme, and lock screen
@@ -58,5 +74,6 @@ a simple grayscale style with a different bg image.
 ```sh
 $ cd ~/.mako
 $ ./install.sh --revert
+$ sudo reboot
 ```
 Note: still leaves various system packages installed/set (ex: fonts).
