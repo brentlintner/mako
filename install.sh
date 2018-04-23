@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-
 OS=`uname -s`
 THEME=mako
 opt=$1
@@ -9,8 +8,8 @@ INST_PATH=/usr/share
 ICONS_PATH=$INST_PATH/icons/$THEME
 THEMES_PATH="$INST_PATH/themes/$THEME"
 BG_IMG_PATH="$INST_PATH/backgrounds/$THEME.png"
-ICONS_EXTRA_PATH=$INST_PATH/icons/$THEME-extra
-CURSOR_URL="https://www.archlinux.org/packages/community/any/xcursor-simpleandsoft/download"
+ICONS_EXTRA_PATH=$INST_PATH/icons/$THEME-icons-extra
+CURSOR_URL="https://www.archlinux.org/packages/community/any/xcursor-vanilla-dmz/download/"
 TMP_PATH=/tmp/$THEME
 PACKAGER="" # set in check_packager()
 
@@ -19,24 +18,22 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="sassc nodejs curl autoconf libglib2.0-dev gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
-DNF_PKGS="curl nodejs gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
-ZYP_PKGS="curl make autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
-PAC_PKGS="curl nodejs sassc glib2 gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
-YUM_PKGS="curl nodejs epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
+APT_PKGS="curl sassc nodejs inkscape autoconf libglib2.0-dev gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+DNF_PKGS="curl nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
+ZYP_PKGS="curl make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
+PAC_PKGS="curl nodejs inkscape sassc glib2 gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+YUM_PKGS="curl nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
 BRW_PKGS="git font-inconsolata font-dejavu"
 
 as_root() {
+  echo "sudo \"$@\""
   if [ $(id -u) -eq 0 ]; then
     "$@"
   else
     if [ ! -z $(command -v sudo) ]; then
-      echo "sudo $@"
       sudo "$@"
     elif [ ! -z $(command -v su) ]; then
-      echo "su root -c '$@'"
-      sudo "$@"
-      su root -c '$@'
+      su root -c "$*"
     else
       echo "Can't continue without sudo/su installed." && exit 1
     fi
@@ -81,6 +78,8 @@ install_pkgs() {
     brew)
       as_root brew tap caskroom/fonts
       as_root brew install -y $BRW_PKGS
+      # TODO: copy over bg image
+      # TODO: can set via cmdline?
       ;;
     *)
       echo "WARNING: Can't install fonts, etc. Unknown pkg manager."
@@ -128,35 +127,40 @@ install_icons() {
 }
 
 install_gtk_theme() {
-  THEME_COLOURS="<(echo -e BG=d8d8d8\nFG=101010\nMENU_BG=3c3c3c\nMENU_FG=e6e6e6\nSEL_BG=ad7fa8\nSEL_FG=ffffff\nTXT_BG=ffffff\nTXT_FG=1a1a1a\nBTN_BG=f5f5f5\nBTN_FG=111111\n)"
+  THEME_COLOURS="../preset.txt"
 
   cd themes/materia-theme
-  # TODO
-  #./change_color.sh -o $THEME "$THEME_COLOURS"
-  as_root ./install.sh -g -d $INST_PATH/themes -n $THEME -c standard -s compact
-  as_root mv $INST_PATH/themes/mako-compact $THEMES_PATH
 
+  mkdir -p $HOME/.themes
+
+  # HACK: using sudo :-S
+  git checkout -- change_color.sh
+  sed -i "s/^\.\/install\.sh/sudo \.\/install.sh \-g/g" change_color.sh
+  ./change_color.sh -o $THEME-tmp $THEME_COLOURS
+  as_root cp -rf $HOME/.themes/$THEME-tmp $THEMES_PATH
+  as_root rm -rf $HOME/.themes/$THEME-tmp
   as_root sed -i "s/Name=.*/Name=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/GtkTheme=.*/GtkTheme=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/MetacityTheme=.*/MetacityTheme=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/IconTheme=.*/IconTheme=$THEME/" "$THEMES_PATH/index.theme"
-  as_root sed -i "s/CursorTheme=.*/CursorTheme=$THEME-cursor/" "$THEMES_PATH/index.theme"
+  as_root sed -i "s/CursorTheme=.*/CursorTheme=$THEME/" "$THEMES_PATH/index.theme"
+
   cd - > /dev/null
 
   if [ ! -d /usr/share/backgrounds ]; then
     as_root mkdir -p /usr/share/backgrounds
   fi
-  as_root cp bg/bg.png $BG_IMG_PATH
+  as_root cp images/background.png $BG_IMG_PATH
 }
 
 install_cursor_theme() {
-  ARCHIVE_NAME="Simple-and-Soft.tar.gz"
+  ARCHIVE_NAME="xcursor-dmz.tar.gz"
   CURSOR_INST_DIR="$INST_PATH/icons/$THEME"
-  CURSOR_DL_PATH=cursors/Simple-and-Soft
-  CURSOR_EXTRACTED_PATH=usr/share/icons/Simple-and-Soft
+  CURSOR_DL_PATH=cursors
+  CURSOR_EXTRACTED_PATH=usr/share/icons/Vanilla-DMZ
 
   mkdir -p $CURSOR_DL_PATH
-  curl -fsL "$CURSOR_URL" > $CURSOR_DL_PATH/$ARCHIVE_NAME
+  curl -fL "$CURSOR_URL" > $CURSOR_DL_PATH/$ARCHIVE_NAME
   cd $CURSOR_DL_PATH
   tar -xvf "$ARCHIVE_NAME" > /dev/null
   cd - > /dev/null
@@ -265,9 +269,9 @@ uninstall() {
   # before turning off user themes..
   gsettings reset org.gnome.shell.extensions.user-theme name
 
+  # don't reset enabled extensions until we have prev list
   gsettings reset org.gnome.desktop.input-sources xkb-options
   gsettings reset org.gnome.desktop.background show-desktop-icons
-  gsettings reset org.gnome.shell enabled-extensions
   gsettings reset org.gnome.desktop.interface gtk-theme
   gsettings reset org.gnome.desktop.interface icon-theme
   gsettings reset org.gnome.desktop.interface cursor-theme
