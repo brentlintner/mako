@@ -145,8 +145,6 @@ install_gtk_theme() {
   as_root sed -i "s/IconTheme=.*/IconTheme=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/CursorTheme=.*/CursorTheme=$THEME/" "$THEMES_PATH/index.theme"
 
-  as_root sed -i "s/Inherits=.*/Inherits=$THEME/" /usr/share/icons/default/index.theme
-
   cd - > /dev/null
 
   if [ ! -d /usr/share/backgrounds ]; then
@@ -197,6 +195,7 @@ install_config() {
 
   as_root mkdir -p /etc/dconf/db/gdm.d
   as_root cp -f config/10-cursor-settings /etc/dconf/db/gdm.d/10-cursor-settings
+  as_root cp -f config/icons-default-index.theme /usr/share/icons/default/index.theme
 
   GNOME_USR_THEME_EXT="user-theme\@gnome-shell-extensions.gcampax.github.com"
   ENABLED_EXTS=$(gsettings get org.gnome.shell enabled-extensions | sed 's/\@as\s*//')
