@@ -18,10 +18,10 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="curl sassc nodejs inkscape autoconf libglib2.0-dev gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+APT_PKGS="curl sassc nodejs inkscape autoconf libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
 DNF_PKGS="curl nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
 ZYP_PKGS="curl make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
-PAC_PKGS="curl nodejs inkscape sassc glib2 gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+PAC_PKGS="curl nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
 YUM_PKGS="curl nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
 BRW_PKGS="git font-inconsolata font-dejavu"
 
@@ -144,6 +144,8 @@ install_gtk_theme() {
   as_root sed -i "s/MetacityTheme=.*/MetacityTheme=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/IconTheme=.*/IconTheme=$THEME/" "$THEMES_PATH/index.theme"
   as_root sed -i "s/CursorTheme=.*/CursorTheme=$THEME/" "$THEMES_PATH/index.theme"
+
+  as_root sed -i "s/Inherits=.*/Inherits=$THEME/" /usr/share/icons/default/index.theme
 
   cd - > /dev/null
 
