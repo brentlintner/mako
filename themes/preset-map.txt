@@ -1,0 +1,13 @@
+BG = Main UI BG
+FG = Main UI Color
+MENU_BG = Windows Decoration BG Color
+MENU_FG = Windows Decoration Text Color
+SEL_BG = Select Type Menu Selected BG Color
+SEL_FG = Select Type Menu Selected Text Color
+TXT_BG = Select Type Menu BG Color
+TXT_FG = Select Type Menu Text Color
+BTN_BG = Button BG Color
+BTN_FG = Button Text Color
+MATERIA_COLOR_VARIANT = ["standard", "compact"]
+MATERIA_STYLE_COMPACT = ["true", "false"]
+GNOME_SHELL_PANEL_OPACITY = [0, 1]

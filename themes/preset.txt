@@ -1,7 +1,7 @@
 BG=f5f5f5
-FG=3c3c3c
+FG=444444
 MENU_BG=444444
-MENU_FG=e6e6e6
+MENU_FG=ffffff
 SEL_BG=686868
 SEL_FG=ffffff
 TXT_BG=ffffff
