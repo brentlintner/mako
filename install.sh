@@ -19,8 +19,8 @@ FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
 APT_PKGS="parallel optipng curl python3 nodejs inkscape autoconf ruby ruby-sass ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
-DNF_PKGS="parallel optipng curl python3 sassc nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
-ZYP_PKGS="parallel optipng curl python3 make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
+DNF_PKGS="parallel optipng curl python3 ruby-sass ruby ruby-dev nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
+ZYP_PKGS="gnu_parallel optipng curl python3 make inkscape autoconf gcc gcc-c++ ruby2.4 ruby2.4-rubygem-sass ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
 PAC_PKGS="parallel optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
 YUM_PKGS="parallel optipng curl python3 nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
 BRW_PKGS="parallel git font-inconsolata font-dejavu"
@@ -91,15 +91,10 @@ install_pkgs() {
   fi
 
   if [ -z $(command -v sassc) ]; then
-    as_root gem install -f rake sassc
-
-    if [ -z $(command -v sassc) ]; then
-      if [ -z $(command -v sass) ]; then
-        # HACK: openSUSE
-        as_root ln -fs /usr/bin/sass.ruby2.1 /usr/bin/sassc
-      else
-        as_root ln -fs $(which sass) /usr/bin/sassc
-      fi
+    if [ -z $(command -v sass) ]; then
+      as_root gem install -f rake sassc
+    else
+      as_root ln -fs $(which sass) /usr/bin/sassc
     fi
   fi
 }
@@ -194,6 +189,7 @@ install_config() {
   cp config/gtk-settings.ini ~/.config/gtk-4.0
 
   as_root mkdir -p /etc/dconf/db/gdm.d
+  as_root mkdir -p /usr/share/icons/default
   as_root cp -f config/10-cursor-settings /etc/dconf/db/gdm.d/10-cursor-settings
   as_root cp -f config/icons-default-index.theme /usr/share/icons/default/index.theme
 
