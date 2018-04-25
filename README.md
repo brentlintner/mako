@@ -2,7 +2,7 @@
 
 A simple, modern and elegant grayscale theme for GTK+ desktops.
 
-![screenshot example](https://raw.githubusercontent.com/brentlintner/mako/master/images/screenshot.png)
+![screenshot example](https://raw.githubusercontent.com/brentlintner/mako/master/screenshot.png)
 
 ## Notice
 
