@@ -18,7 +18,7 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="curl sassc nodejs inkscape autoconf libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+APT_PKGS="curl nodejs inkscape autoconf ruby ruby-sass ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
 DNF_PKGS="curl nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
 ZYP_PKGS="curl make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
 PAC_PKGS="curl nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
@@ -87,7 +87,7 @@ install_pkgs() {
   esac
 
   if [ -z $(command -v node) ]; then
-    as_root ln -s /usr/bin/nodejs /usr/bin/node
+    as_root ln -fs /usr/bin/nodejs /usr/bin/node
   fi
 
   if [ -z $(command -v sassc) ]; then
@@ -96,9 +96,9 @@ install_pkgs() {
     if [ -z $(command -v sassc) ]; then
       if [ -z $(command -v sass) ]; then
         # HACK: openSUSE
-        as_root ln -s /usr/bin/sass.ruby2.1 /usr/bin/sassc
+        as_root ln -fs /usr/bin/sass.ruby2.1 /usr/bin/sassc
       else
-        as_root ln -s /usr/bin/sass /usr/bin/sassc
+        as_root ln -fs $(which sass) /usr/bin/sassc
       fi
     fi
   fi
