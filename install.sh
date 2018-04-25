@@ -18,12 +18,12 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="curl nodejs inkscape autoconf ruby ruby-sass ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
-DNF_PKGS="curl nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git sassc dejavu-sans-fonts levien-inconsolata-fonts"
-ZYP_PKGS="curl make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
-PAC_PKGS="curl nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
-YUM_PKGS="curl nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
-BRW_PKGS="git font-inconsolata font-dejavu"
+APT_PKGS="parallel optipng curl python3 nodejs inkscape autoconf ruby ruby-sass ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+DNF_PKGS="parallel optipng curl python3 sassc nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
+ZYP_PKGS="parallel optipng curl python3 make inkscape autoconf gcc gcc-c++ ruby2.1 ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
+PAC_PKGS="parallel optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+YUM_PKGS="parallel optipng curl python3 nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
+BRW_PKGS="parallel git font-inconsolata font-dejavu"
 
 as_root() {
   echo "sudo \"$@\""
