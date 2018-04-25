@@ -9,30 +9,6 @@ A simple, modern and elegant grayscale theme for GTK+ desktops.
 I currently use this as a personal install script to quickly setup a
 consistent GNU/Linux look and feel alongside my [dot-files](https://github.com/brentlintner/dot-files) and [vim-settings](https://github.com/brentlintner/vim-settings), primarily using gnome-shell as the DE.
 
-## Supported OSes
-
-* Manjaro/Arch
-* Fedora
-* Ubuntu
-* openSUSE (need to install [gnome-extension-user-theme](https://extensions.gnome.org/extension/19/user-themes) manually)
-* CentOS
-* Debian
-* macOS (just the fonts)
-
-## Requirements
-
-* glib based DE such as gnome-shell or Unity (limited support on DEs like XFCE, etc)
-* Xorg (gnome-shell extensions + Wayland not 100%)
-
-## Install
-```sh
-$ git clone git@github.com:brentlintner/mako.git ~/.mako
-$ cd ~/.mako
-$ ./install.sh
-$ sudo reboot
-```
-Note: On OSes without `sudo` it might be way less annoying to just run `install.sh` as root.
-
 ## Features
 
 * A material design based grayscale interface, shell and gdm theme
@@ -69,6 +45,47 @@ The main [background.png](https://github.com/brentlintner/mako/raw/master/images
 
 Based on Manjaro's [grub-theme](https://github.com/manjaro/grub-theme/tree/master/manjaro-live) but modded to have
 a simple grayscale style with a different background image.
+
+#### Gnome Shell Extensions
+
+To get the look shown in the screenshot you need to install other extensions manually.
+
+* [user-themes](https://extensions.gnome.org/extension/1031/topicons/) (installed by `install.sh`)
+* [activities-configurator](https://extensions.gnome.org/extension/358/activities-configurator/)
+* [alternate-tab](https://extensions.gnome.org/extension/15/alternatetab/)
+* [dash-to-dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
+* [hide-top-bar](https://extensions.gnome.org/extension/545/hide-top-bar/)
+* [kstatus-notifier-item/appindicator support](https://extensions.gnome.org/extension/615/appindicator-support/)
+* [{manjaro,arch}-linux-updates-indicator](https://extensions.gnome.org/extension/1010/archlinux-updates-indicator/) (in respective repos)
+* [media-player-indicator](https://extensions.gnome.org/extension/55/media-player-indicator/)
+* [openweather](https://extensions.gnome.org/extension/750/openweather/)
+* [pomodoro](https://extensions.gnome.org/extension/53/pomodoro/)
+* [removable-drive-menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)
+* [topicons-plus](https://extensions.gnome.org/extension/1031/topicons/)
+
+## Supported OSes
+
+* Manjaro/Arch
+* Fedora
+* Ubuntu
+* openSUSE (need to install [gnome-extension-user-theme](https://extensions.gnome.org/extension/19/user-themes) manually)
+* CentOS
+* Debian
+* macOS (just the fonts)
+
+## Requirements
+
+* glib based DE such as gnome-shell or Unity (limited support on DEs like XFCE, etc)
+* Xorg (gnome-shell extensions + Wayland not 100%)
+
+## Install
+```sh
+$ git clone git@github.com:brentlintner/mako.git ~/.mako
+$ cd ~/.mako
+$ ./install.sh
+$ sudo reboot
+```
+Note: On OSes without `sudo` it might be way less annoying to just run `install.sh` as root.
 
 ## Uninstall
 ```sh
