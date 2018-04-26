@@ -11,4 +11,3 @@ gtk-cursor-theme-name="mako"
 gtk-toolbar-style=GTK_TOOLBAR_ICONS
 gtk-menu-images=1
 gtk-button-images=1
-gtk-primary-button-warps-slider=false
