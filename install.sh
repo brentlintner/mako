@@ -303,6 +303,7 @@ usage() {
 }
 
 run() {
+  trap "exit" INT
   case $opt in
     -h )
       usage
