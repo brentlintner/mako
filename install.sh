@@ -197,9 +197,9 @@ install_config() {
   if [ -d /etc/environment ]; then
     # HACK: check vs hammer
     as_root sed -i '/QT_QPA_PLATFORMTHEME/d' /etc/environment
-    echo "QT_QPA_PLATFORMTHEME=qt5ct'" | as_root tee -a /etc/environment
+    echo "QT_QPA_PLATFORMTHEME=qt5ct" | as_root tee -a /etc/environment
   else
-    echo WARING: need to set QT_QPA_PLATFORMTHEME=qt5ct manually"
+    echo "WARING: need to set QT_QPA_PLATFORMTHEME=qt5ct manually"
   fi
 
   as_root mkdir -p /etc/dconf/db/gdm.d
