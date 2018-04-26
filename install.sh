@@ -21,7 +21,7 @@ FONT_DOCUMENT="DejaVu Sans 12"
 APT_PKGS="parallel optipng curl python3 nodejs inkscape autoconf ruby ruby-sass ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
 DNF_PKGS="parallel optipng curl python3 ruby-sass ruby ruby-dev nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
 ZYP_PKGS="gnu_parallel optipng curl python3 make inkscape autoconf gcc gcc-c++ ruby2.4 ruby2.4-rubygem-sass ruby-devel nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
-PAC_PKGS="parallel optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+PAC_PKGS="qt5ct parallel optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
 YUM_PKGS="parallel optipng curl python3 nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
 BRW_PKGS="parallel git font-inconsolata font-dejavu"
 
@@ -187,8 +187,20 @@ install_config() {
   cp -f config/gtk-settings.ini $HOME/.config/gtk-2.0
   cp -f config/gtk-settings.ini $HOME/.config/gtk-3.0
   cp -f config/gtk-settings.ini $HOME/.config/gtk-4.0
-  ln -sf config/gtkrc-2.0 $HOME/.gtkrc-2.0
+
+  # qt stuff
+  mkdir -p $HOME/.config/qt5ct/colors
+  cp -f config/gtkrc-2.0 $HOME/.gtkrc-2.0
   ln -sf $HOME/gtkrc-2.0 $HOME/.gtkrc-2.0-kde4
+  cp -f config/qt5ct.conf $HOME/.config/qt5ct/qt5ct.conf
+  cp -f config/qt5ct.colors.conf $HOME/.config/qt5ct/colors/$THEME.conf
+  if [ -d /etc/environment ]; then
+    # HACK: check vs hammer
+    as_root sed -i '/QT_QPA_PLATFORMTHEME/d' /etc/environment
+    echo "QT_QPA_PLATFORMTHEME=qt5ct'" | as_root tee -a /etc/environment
+  else
+    echo WARING: need to set QT_QPA_PLATFORMTHEME=qt5ct manually"
+  fi
 
   as_root mkdir -p /etc/dconf/db/gdm.d
   as_root mkdir -p /usr/share/icons/default
@@ -264,6 +276,9 @@ uninstall() {
     as_root rm -rf $INST_PATH/grub/themes/$THEME
     as_root update-grub
   fi
+
+  # disable qt5ct vs changing config files
+  as_root sed -i '/QT_QPA_PLATFORMTHEME/d' /etc/environment
 
   # before turning off user themes..
   gsettings reset org.gnome.shell.extensions.user-theme name
