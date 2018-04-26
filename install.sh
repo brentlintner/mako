@@ -184,10 +184,10 @@ install_config() {
   mkdir -p $HOME/.config/gtk-2.0
   mkdir -p $HOME/.config/gtk-3.0
   mkdir -p $HOME/.config/gtk-4.0
-  cp config/gtk-settings.ini $HOME/.config/gtk-2.0
-  cp config/gtk-settings.ini $HOME/.config/gtk-3.0
-  cp config/gtk-settings.ini $HOME/.config/gtk-4.0
-  cp config/.gtkrc-2.0 $HOME/.gtkrc-2.0
+  cp -f config/gtk-settings.ini $HOME/.config/gtk-2.0
+  cp -f config/gtk-settings.ini $HOME/.config/gtk-3.0
+  cp -f config/gtk-settings.ini $HOME/.config/gtk-4.0
+  cp -f config/.gtkrc-2.0 $HOME/.gtkrc-2.0
   ln -sf $HOME/.gtkrc-2.0 $HOME/.gtkrc-2.0-kde4
 
   as_root mkdir -p /etc/dconf/db/gdm.d
