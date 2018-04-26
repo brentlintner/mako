@@ -187,8 +187,8 @@ install_config() {
   cp -f config/gtk-settings.ini $HOME/.config/gtk-2.0
   cp -f config/gtk-settings.ini $HOME/.config/gtk-3.0
   cp -f config/gtk-settings.ini $HOME/.config/gtk-4.0
-  cp -f config/.gtkrc-2.0 $HOME/.gtkrc-2.0
-  ln -sf $HOME/.gtkrc-2.0 $HOME/.gtkrc-2.0-kde4
+  cp -f config/gtkrc-2.0 $HOME/.gtkrc-2.0
+  ln -sf $HOME/gtkrc-2.0 $HOME/.gtkrc-2.0-kde4
 
   as_root mkdir -p /etc/dconf/db/gdm.d
   as_root mkdir -p /usr/share/icons/default
