@@ -194,7 +194,7 @@ install_config() {
   ln -sf $HOME/gtkrc-2.0 $HOME/.gtkrc-2.0-kde4
   cp -f config/qt5ct.conf $HOME/.config/qt5ct/qt5ct.conf
   cp -f config/qt5ct.colors.conf $HOME/.config/qt5ct/colors/$THEME.conf
-  if [ -d /etc/environment ]; then
+  if [ -f /etc/environment ]; then
     # HACK: check vs hammer
     as_root sed -i '/QT_QPA_PLATFORMTHEME/d' /etc/environment
     echo "QT_QPA_PLATFORMTHEME=qt5ct" | as_root tee -a /etc/environment
