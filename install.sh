@@ -309,19 +309,19 @@ usage() {
 }
 
 run() {
-  trap "exit" INT
+  trap exit INT
   case $opt in
     -h )
       usage
       exit 0
       ;;
     --revert )
-      uninstall
       trap clean_tmp EXIT
+      uninstall
       ;;
     * )
-      install
       trap clean_tmp EXIT
+      install
       ;;
   esac
   echo "== Done! (you may have to restart)"
