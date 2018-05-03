@@ -65,12 +65,10 @@ To get the look shown in the screenshot you need to install other extensions man
 
 ## Supported OSes
 
-* Manjaro/Arch
-* Fedora
-* Ubuntu
+* Arch/Manjaro
+* Fedora/CentOS
+* Ubuntu/Debian
 * openSUSE (need to install [gnome-extension-user-theme](https://extensions.gnome.org/extension/19/user-themes) manually)
-* CentOS
-* Debian
 * macOS (just the fonts)
 
 ## Requirements
