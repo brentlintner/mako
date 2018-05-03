@@ -51,7 +51,7 @@ a simple grayscale style with a different background image.
 To get the look shown in the screenshot you need to install other extensions manually.
 
 * [user-themes](https://extensions.gnome.org/extension/1031/topicons/) (installed by `install.sh`)
-* [activities-configurator](https://extensions.gnome.org/extension/358/activities-configurator/)
+* [activities-configurator](https://extensions.gnome.org/extension/358/activities-configurator/) (start icons can be found in `/usr/share/icons/mako/places/symbolic/start-here-*.png`)
 * [alternate-tab](https://extensions.gnome.org/extension/15/alternatetab/)
 * [dash-to-dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
 * [hide-top-bar](https://extensions.gnome.org/extension/545/hide-top-bar/)
