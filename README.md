@@ -16,7 +16,7 @@ consistent GNU/Linux look and feel alongside my [dot-files](https://github.com/b
 * Rich, layered icon sets
 * Beautiful background, grub theme, and lock screen
 * Console and DE font configs
-* Extra config files to make GDM honour custom cursors, etc
+* Extra config files for Qt5 theme mapping, setting gdm cursor, etc
 
 #### GTK+ Theme
 
