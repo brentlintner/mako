@@ -62,6 +62,7 @@ To get the look shown in the screenshot you need to install other extensions man
 * [pomodoro](https://extensions.gnome.org/extension/53/pomodoro/)
 * [removable-drive-menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)
 * [topicons-plus](https://extensions.gnome.org/extension/1031/topicons/)
+* [status-area-horizontal-spacing](https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/)
 
 ## Supported OSes
 
