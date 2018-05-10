@@ -176,7 +176,7 @@ install_grub_theme() {
     as_root mkdir -p $INST_PATH/grub/themes
     as_root cp -r boot/grub $INST_PATH/grub/themes/$THEME
     as_root cp -f $DEFAULT_GRUB_FILE $DEFAULT_GRUB_FILE.bak
-    # TODO: check if setting already exists and replace vs adding on (ex: manjaro linux)
+    as_root sed -i 's/GRUB_THEME.*//' $DEFAULT_GRUB_FILE
     echo 'GRUB_THEME="/usr/share/grub/themes/mako/theme.txt"' | as_root tee -a $DEFAULT_GRUB_FILE
     as_root sed -i 's/GRUB_HIDDEN_TIMEOUT_QUIET.*//' $DEFAULT_GRUB_FILE
     as_root sed -i 's/GRUB_HIDDEN_TIMEOUT.*//' $DEFAULT_GRUB_FILE
