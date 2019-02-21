@@ -3,6 +3,8 @@ OS=`uname -s`
 THEME=mako
 opt=$1
 
+set -e
+
 INST_PATH=/usr/share
 
 ICONS_PATH=$INST_PATH/icons/$THEME
@@ -151,6 +153,13 @@ install_gtk_theme() {
     as_root mkdir -p /usr/share/backgrounds
   fi
   as_root cp images/background.png $BG_IMG_PATH
+
+  if [ ! -e /usr/share/gnome-shell/gnome-shell-theme.gresource.bak ]; then
+    as_root cp -av /usr/share/gnome-shell/gnome-shell-theme.gresource{,.bak}
+  fi
+  cd /usr/share/themes/$THEME/gnome-shell
+  as_root glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
+  cd - > /dev/null
 }
 
 install_cursor_theme() {
@@ -275,6 +284,10 @@ install() {
 
 uninstall() {
   remove_files
+
+  if [ -e /usr/share/gnome-shell/gnome-shell-theme.gresource.bak ]; then
+    as_root mv /usr/share/gnome-shell/gnome-shell-theme.gresource.bak /usr/share/gnome-shell/gnome-shell-theme.gresource
+  fi
 
   if [ -f /etc/default/grub.bak ]; then
     as_root mv /etc/default/grub.bak /etc/default/grub
