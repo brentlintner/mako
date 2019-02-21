@@ -18,11 +18,11 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="parallel bc optipng curl python3 nodejs inkscape autoconf sassc ruby ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
-DNF_PKGS="parallel bc optipng curl python3 ruby-sass ruby ruby-dev nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
-ZYP_PKGS="gnu_parallel bc optipng curl python3 make inkscape autoconf gcc7 gcc7-c++ ruby ruby-devel sassc nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
-PAC_PKGS="qt5ct parallel bc optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
-YUM_PKGS="parallel optipng bc curl python3 nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
+APT_PKGS="meson ninja parallel bc optipng curl python3 nodejs inkscape autoconf sassc ruby ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+DNF_PKGS="meson ninja parallel bc optipng curl python3 ruby-sass ruby ruby-dev nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
+ZYP_PKGS="meson ninja gnu_parallel bc optipng curl python3 make inkscape autoconf gcc7 gcc7-c++ ruby ruby-devel sassc nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
+PAC_PKGS="meson ninja qt5ct parallel bc optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
+YUM_PKGS="meson ninja parallel optipng bc curl python3 nodejs inkscape epel-release ruby gcc-c++ glib2-devel gnome-common gnome-tweak-tool gnome-shell-extension-user-theme git dejavu-sans-fonts"
 BRW_PKGS="parallel git font-inconsolata font-dejavu"
 
 as_root() {
