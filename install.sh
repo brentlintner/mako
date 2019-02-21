@@ -59,8 +59,8 @@ check_packager() {
 install_pkgs() {
   case $PACKAGER in
     pacman)
-      as_root pacman --noconfirm --needed -S yaourt
-      as_root yaourt --noconfirm --needed -S $PAC_PKGS
+      as_root pacman --noconfirm -S yaourt
+      as_root yaourt --noconfirm -S $PAC_PKGS
       ;;
     zypper)
       as_root zypper in -y $ZYP_PKGS
