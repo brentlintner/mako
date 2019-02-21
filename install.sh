@@ -110,9 +110,8 @@ install_icons() {
 
   cd icons/paper-icon-theme
   as_root mkdir -p $TMP_PATH/icons
-  ./autogen.sh --prefix=$TMP_PATH/icons
-  make
-  as_root make install > /dev/null
+  meson "build" --prefix=$TMP_PATH/icons
+  as_root ninja -C "build" install > /dev/null
   as_root cp -r $TMP_PATH/icons/share/icons/Paper $ICONS_EXTRA_PATH
   as_root rm -rf $TMP_PATH/icons/share/icons/Paper*
   as_root sed -i "s/Name=.*/Name=$THEME-icons-extra/" $ICONS_EXTRA_PATH/index.theme
