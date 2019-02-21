@@ -93,9 +93,3 @@ $ ./install.sh --revert
 $ sudo reboot
 ```
 Note: still leaves various system packages installed/set (ex: fonts).
-
-## Workarounds
-
-* Chromium tabs have dark text on a dark bg.
-
-Set [chrome://flags/#top-chrome-md]() to Normal.
