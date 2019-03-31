@@ -20,7 +20,7 @@ FONT_MONO="Inconsolata 12"
 FONT_INTERFACE="DejaVu Sans 10"
 FONT_DOCUMENT="DejaVu Sans 12"
 
-APT_PKGS="meson ninja parallel bc optipng curl python3 nodejs inkscape autoconf sassc ruby ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
+APT_PKGS="meson ninja-build parallel bc optipng curl python3 nodejs inkscape autoconf sassc ruby ruby-dev libglib2.0-dev gnome-themes-standard gnome-common gnome-shell-extensions gnome-tweak-tool libxml2-utils gtk2-engines-murrine gtk2-engines-pixbuf git fonts-dejavu fonts-inconsolata"
 DNF_PKGS="meson ninja parallel bc optipng curl python3 ruby-sass ruby ruby-dev nodejs inkscape gnome-common gnome-tweak-tool gnome-shell-extension-user-theme glib2-devel gtk-murrine-engine gtk2-engines git dejavu-sans-fonts levien-inconsolata-fonts"
 ZYP_PKGS="meson ninja gnu_parallel bc optipng curl python3 make inkscape autoconf gcc7 gcc7-c++ ruby ruby-devel sassc nodejs6 gnome-common gnome-tweak-tool gtk2-engine-murrine gtk2-engines git glib2-devel dejavu-fonts google-inconsolata-fonts"
 PAC_PKGS="meson ninja qt5ct parallel bc optipng curl python3 nodejs inkscape sassc glib2 gnome-themes-extra gnome-shell-extensions gnome-common gtk-engine-murrine gtk-engines git ttf-inconsolata ttf-dejavu gnome-tweaks"
@@ -61,8 +61,8 @@ check_packager() {
 install_pkgs() {
   case $PACKAGER in
     pacman)
-      as_root pacman --noconfirm -S yaourt
-      as_root yaourt --noconfirm -S $PAC_PKGS
+      as_root pacman --noconfirm -S trizen
+      trizen --noconfirm -S $PAC_PKGS
       ;;
     zypper)
       as_root zypper in -y $ZYP_PKGS
