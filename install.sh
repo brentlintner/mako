@@ -61,8 +61,8 @@ check_packager() {
 install_pkgs() {
   case $PACKAGER in
     pacman)
-      as_root pacman --noconfirm -S trizen
-      trizen --noconfirm -S $PAC_PKGS
+      as_root pacman --noconfirm -S yay
+      yay --noconfirm -S $PAC_PKGS
       ;;
     zypper)
       as_root zypper in -y $ZYP_PKGS
