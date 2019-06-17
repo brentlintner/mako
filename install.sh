@@ -224,7 +224,7 @@ install_config() {
   GNOME_USR_THEME_EXT="user-theme\@gnome-shell-extensions.gcampax.github.com"
   ENABLED_EXTS=$(gsettings get org.gnome.shell enabled-extensions | sed 's/\@as\s*//')
   NEW_SETTINGS=$(node -e "console.log(JSON.stringify($ENABLED_EXTS.concat('$GNOME_USR_THEME_EXT')))")
-  gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape']"
+  gsettings set org.gnome.desktop.input-sources xkb-options "['caps:swapescape', 'compose:rctrl']"
   gsettings set org.gnome.desktop.background show-desktop-icons "false"
   gsettings set org.gnome.shell enabled-extensions "$NEW_SETTINGS"
   gsettings set org.gnome.shell.extensions.user-theme name "$THEME"
