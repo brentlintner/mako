@@ -160,6 +160,9 @@ install_gtk_theme() {
   cd /usr/share/themes/$THEME/gnome-shell
   as_root glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
   cd - > /dev/null
+
+  mkdir -p ~/.config/gtk-3.0
+  echo "VteTerminal, vte-terminal { padding: 10px; }" > ~/.config/gtk-3.0/gtk.css
 }
 
 install_cursor_theme() {
