@@ -192,7 +192,6 @@ install_grub_theme() {
     as_root sed -i 's/GRUB_HIDDEN_TIMEOUT_QUIET.*//' $DEFAULT_GRUB_FILE
     as_root sed -i 's/GRUB_HIDDEN_TIMEOUT.*//' $DEFAULT_GRUB_FILE
     as_root sed -i 's/GRUB_TIMEOUT.*/GRUB_TIMEOUT=5/' $DEFAULT_GRUB_FILE
-    as_root sed -i 's/GRUB_CMDLINE_LINUX_DEFAULT.*/GRUB_CMDLINE_LINUX_DEFAULT=""/' $DEFAULT_GRUB_FILE
     as_root update-grub
   fi
 }
