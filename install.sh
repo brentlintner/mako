@@ -241,6 +241,8 @@ install_config() {
   if [ ! $PACKAGER = "yum" ]; then
     gsettings set org.gnome.desktop.interface monospace-font-name "$FONT_MONO"
   fi
+
+  as_root dconf update
 }
 
 clean_tmp() {
