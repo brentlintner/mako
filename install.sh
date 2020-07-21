@@ -127,6 +127,8 @@ install_gtk_theme() {
 
   cd themes/materia-theme
 
+  sed -i 's/\$panel-button-hpadding.*/\$panel-button-hpadding:2px;/' src/gnome-shell/sass/_variables.scss
+
   mkdir -p $HOME/.themes
 
   # HACK: using sudo :-S
