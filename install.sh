@@ -291,6 +291,9 @@ uninstall() {
 
   if [ -e /usr/share/gnome-shell/gnome-shell-theme.gresource.bak ]; then
     as_root mv /usr/share/gnome-shell/gnome-shell-theme.gresource.bak /usr/share/gnome-shell/gnome-shell-theme.gresource
+    cd /usr/share/themes/manjaro-gdm-theme
+    as_root glib-compile-resources --target=/usr/share/gnome-shell/gnome-shell-theme.gresource gnome-shell-theme.gresource.xml
+    cd - > /dev/null
   fi
 
   if [ -f /etc/default/grub.bak ]; then
