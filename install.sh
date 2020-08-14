@@ -9,7 +9,7 @@ INST_PATH=/usr/share
 
 ICONS_PATH=$INST_PATH/icons/$THEME
 THEMES_PATH="$INST_PATH/themes/$THEME"
-BG_IMG_PATH="$INST_PATH/backgrounds/$THEME.png"
+BG_IMG_PATH="$INST_PATH/backgrounds/$THEME.jpg"
 ICONS_EXTRA_PATH=$INST_PATH/icons/$THEME-icons-extra
 CURSOR_URL="https://www.archlinux.org/packages/community/any/xcursor-vanilla-dmz/download/"
 TMP_PATH=/tmp/$THEME
@@ -154,7 +154,7 @@ install_gtk_theme() {
   if [ ! -d /usr/share/backgrounds ]; then
     as_root mkdir -p /usr/share/backgrounds
   fi
-  as_root cp images/background.png $BG_IMG_PATH
+  as_root cp images/background.jpg $BG_IMG_PATH
 
   if [ ! -e /usr/share/gnome-shell/gnome-shell-theme.gresource.bak ]; then
     as_root cp -av /usr/share/gnome-shell/gnome-shell-theme.gresource{,.bak}
