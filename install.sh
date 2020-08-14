@@ -123,7 +123,7 @@ install_icons() {
 }
 
 install_gtk_theme() {
-  THEME_COLOURS="../preset.txt"
+  THEME_COLOURS_PRESET="../preset.txt"
 
   cd themes/materia-theme
 
@@ -140,7 +140,9 @@ install_gtk_theme() {
     echo "Workaround is to just run this entire script as root."
     exit 1
   fi
-  ./change_color.sh -o $THEME-tmp $THEME_COLOURS
+  export MATERIA_COLOR_VARIANT="dark"
+  export MATERIA_STYLE_COMPACT="true"
+  yes | ./change_color.sh -o $THEME-tmp $THEME_COLOURS_PRESET
   as_root cp -rf $HOME/.themes/$THEME-tmp $THEMES_PATH
   as_root rm -rf $HOME/.themes/$THEME-tmp
   as_root sed -i "s/Name=.*/Name=$THEME/" "$THEMES_PATH/index.theme"
@@ -174,6 +176,7 @@ install_cursor_theme() {
   CURSOR_EXTRACTED_PATH=usr/share/icons/Vanilla-DMZ
 
   mkdir -p $CURSOR_DL_PATH
+
   curl -fL "$CURSOR_URL" > $CURSOR_DL_PATH/$ARCHIVE_NAME
   cd $CURSOR_DL_PATH
   tar -xvf "$ARCHIVE_NAME" > /dev/null
