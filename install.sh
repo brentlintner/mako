@@ -179,7 +179,7 @@ install_cursor_theme() {
 
   curl -fL "$CURSOR_URL" > $CURSOR_DL_PATH/$ARCHIVE_NAME
   cd $CURSOR_DL_PATH
-  tar -I zstd --xvf "$ARCHIVE_NAME" > /dev/null
+  tar -I zstd -xvf "$ARCHIVE_NAME" > /dev/null
   cd - > /dev/null
 
   as_root cp -r $CURSOR_DL_PATH/$CURSOR_EXTRACTED_PATH/cursors $CURSOR_INST_DIR/cursors
