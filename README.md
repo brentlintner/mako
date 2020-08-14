@@ -48,21 +48,23 @@ a simple grayscale style with a different background image.
 
 #### Gnome Shell Extensions
 
-To get the look shown in the screenshot you need to install other extensions manually.
+Some extensions I use to get Gnome even more customized.
 
 * [user-themes](https://extensions.gnome.org/extension/1031/topicons/) (installed by `install.sh`)
+* [vitals](https://github.com/corecoding/Vitals)
 * [activities-configurator](https://extensions.gnome.org/extension/358/activities-configurator/) (start icons can be found in `/usr/share/icons/mako/places/symbolic/start-here-*.png`)
+* [always-indicator](https://github.com/mzur/gnome-shell-always-indicator)
+* [kstatus-notifier-item/appindicator-support](https://extensions.gnome.org/extension/615/appindicator-support/)
 * [alternate-tab](https://extensions.gnome.org/extension/15/alternatetab/)
 * [dash-to-dock](https://extensions.gnome.org/extension/307/dash-to-dock/)
-* [hide-top-bar](https://extensions.gnome.org/extension/545/hide-top-bar/)
-* [kstatus-notifier-item/appindicator support](https://extensions.gnome.org/extension/615/appindicator-support/)
-* [{manjaro,arch}-linux-updates-indicator](https://extensions.gnome.org/extension/1010/archlinux-updates-indicator/) (in respective repos)
-* [media-player-indicator](https://extensions.gnome.org/extension/55/media-player-indicator/)
-* [openweather](https://extensions.gnome.org/extension/750/openweather/)
-* [pomodoro](https://extensions.gnome.org/extension/53/pomodoro/)
-* [removable-drive-menu](https://extensions.gnome.org/extension/7/removable-drive-menu/)
-* [topicons-plus](https://extensions.gnome.org/extension/1031/topicons/)
-* [status-area-horizontal-spacing](https://extensions.gnome.org/extension/355/status-area-horizontal-spacing/)
+* [caffeine-ng](https://github.com/caffeine-ng/caffeine-ng) or [gnome-shell-extension-caffeine](https://github.com/eonpatapon/gnome-shell-extension-caffeine)
+* [remove-dropdown-arrows](https://github.com/mpdeimos/gnome-shell-remove-dropdown-arrows)
+* [remove-alt-tab-delay](https://github.com/BjoernDaase/remove-alt-tab-delay)
+* [no-annoyance](https://github.com/BjoernDaase/noannoyance)
+* [disable-workspace-switcher-popup](https://github.com/windsorschmidt/disable-workspace-switcher-popup)
+* [applications-menu](https://gitlab.gnome.org/GNOME/gnome-shell-extensions)
+* [sound-and-input-device-chooser](https://github.com/kgshank/gse-sound-output-device-chooser)
+* [big-avatar](https://extensions.gnome.org/extension/2494/bigavatar/)
 
 ## Supported OSes
 
