@@ -34,7 +34,7 @@ Primarily uses the [Vertex](https://github.com/horst3180/vertex-icons) icon set 
 
 #### Background
 
-The main [background.png](https://github.com/brentlintner/mako/raw/master/images/background.png) image is originally from [InterfaceLift](https://interfacelift.com/wallpaper/details/4129/zuiderheide.html).
+The main [background.jpg](https://github.com/brentlintner/mako/raw/master/images/background.jpg) image is a grayscale version of the [Jet in Carina Nebula](https://www.google.com/search?q=jet+in+carina+background&sxsrf=ALeKk03Tg4XrWp1oA-694kWLB6qHl370Vg:1597436889880&tbm=isch&source=iu&ictx=1&fir=OAiw1rhvym_73M%252CcK6QtbgGz1CWTM%252C_&vet=1&usg=AI4_-kTApNpSM3-eLx9KZXTYPRRJq6KFGQ&sa=X&ved=2ahUKEwiB__ySxJvrAhUKhXIEHc6xB74Q9QEwBHoECAcQIA&biw=1920&bih=980#imgrc=OAiw1rhvym_73M) background.
 
 #### Fonts
 
