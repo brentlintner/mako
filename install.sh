@@ -112,8 +112,8 @@ install_icons() {
 
   cd icons/paper-icon-theme
   as_root mkdir -p $TMP_PATH/icons
-  meson "build" --prefix=$TMP_PATH/icons
-  as_root ninja -C "build" install > /dev/null
+  meson "_build" --prefix=$TMP_PATH/icons
+  as_root ninja -C "_build" install > /dev/null
   as_root cp -r $TMP_PATH/icons/share/icons/Paper $ICONS_EXTRA_PATH
   as_root rm -rf $TMP_PATH/icons/share/icons/Paper*
   as_root sed -i "s/Name=.*/Name=$THEME-icons-extra/" $ICONS_EXTRA_PATH/index.theme
@@ -127,7 +127,7 @@ install_gtk_theme() {
 
   cd themes/materia-theme
 
-  sed -i 's/\$panel-button-hpadding.*/\$panel-button-hpadding:2px;/' src/gnome-shell/sass/_variables.scss
+  #sed -i 's/\$panel-button-hpadding.*/\$panel-button-hpadding:4px;/' src/gnome-shell/sass/_variables.scss
 
   mkdir -p $HOME/.themes
 
