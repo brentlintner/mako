@@ -1,5 +1,7 @@
 # Mako
 
+ATTENTION: I started using [Colloid](https://github.com/vinceliuice/Colloid-gtk-theme) instead of this, check it out!
+
 A simple, modern and elegant grayscale theme for GTK+ desktops.
 
 ![screenshot example](https://raw.githubusercontent.com/brentlintner/mako/master/screenshot.png)
